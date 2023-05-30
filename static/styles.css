@@ -1,0 +1,96 @@
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #f7f9fb;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto; /* Center the container */
+}
+
+h1 {
+  color: #3a3a3a;
+  font-size: 36px;
+  margin-bottom: 1.5rem;
+  text-align: center; /* Center the main heading */
+}
+
+h2 {
+  color: #3a3a3a;
+  font-size: 24px;
+  text-align: center; /* Center subheadings */
+}
+
+form {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2rem; /* Add spacing below form */
+}
+
+input[type="text"], .form-control {
+  border-radius: 5px;
+  border: 1px solid #dadce0;
+  padding: 0.5rem;
+  font-size: 14px;
+}
+
+button[type="submit"], .btn {
+  border-radius: 5px;
+  background-color: #018786;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 20px;
+  margin-top: 1rem;
+  display: block; /* Make button a block element */
+  margin-left: auto; /* Center button */
+  margin-right: auto;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover, .btn:hover {
+  background-color: #016f62;
+}
+
+p {
+  font-size: 48px; /* Make emoji hints much larger */
+  margin: 1.5rem 0;
+  text-align: center; /* Center the hint */
+}
+
+/* Center form labels and inputs */
+.form-label, input[type="text"] {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+#welcome {
+  font-size: 18px;
+}
+
+#loading {
+  display: none;
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  margin-bottom: 20px;
+  width: 60px;
+  height: 60px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

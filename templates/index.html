@@ -1,21 +1,85 @@
-<!DOCTYPE html>
+<!doctype html>
+<html lang="en">
 <head>
-  <title>OpenAI Quickstart</title>
-  <link
-    rel="shortcut icon"
-    href="{{ url_for('static', filename='dog.png') }}"
-  />
-  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5XINf0p7bfzJFLEGfL-7g8eeieHEcaiRE+zbaKPJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        #loading {
+            display: none;
+        }
+    </style>
+    <title>EmojiPT: Interactive Movie Guessing Game</title>
 </head>
-
 <body>
-  <img src="{{ url_for('static', filename='dog.png') }}" class="icon" />
-  <h3>Name my pet</h3>
-  <form action="/" method="post">
-    <input type="text" name="animal" placeholder="Enter an animal" required />
-    <input type="submit" value="Generate names" />
-  </form>
-  {% if result %}
-  <div class="result">{{ result }}</div>
-  {% endif %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">EmojiPT: Interactive Movie Guessing Game</h1>
+        <!-- Fun description -->
+        <p id="welcome" class="text-center">Welcome to EmojiPT! Get ready to have fun and test your movie knowledge. Dive into the game, decode the hints expressed as emoji sequences and guess the movie hidden behind them.</p>
+        <div id="loading" class="text-center" style="display: none;">
+            <div class="loader"></div>
+        </div>
+        {% if win %}
+            <h2>Congratulations! You guessed the movie: {{ secret_movie }}</h2>
+            <form method="POST">
+                <button id="play-again" type="submit" class="btn btn-primary">Play Again</button>
+            </form>
+        {% else %}
+            {% if secret_movie %}
+                <form id="submit-guess-form" method="POST">
+                    <input type="hidden" name="secret_movie" value="{{ secret_movie }}">
+                    {% for hint in hint_history %}
+                        <input type="hidden" name="hint_history[]" value="{{ hint }}">
+                    {% endfor %}
+                    {% for guess in guess_history %}
+                        <input type="hidden" name="guess_history[]" value="{{ guess }}">
+                    {% endfor %}
+                    <div class="mb-3">
+                        <label for="input_current_guess" class="form-label">Your guess:</label>
+                        <input type="text" name="current_guess" class="form-control" id="input_current_guess" required>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <h2>Latest Hint:</h2>
+                        <button id="submit-guess" type="submit" class="btn btn-primary">Submit Guess</button>
+                    </div>
+                    <p>{{ hint_history[-1] }}</p>
+                </form>
+            {% else %}
+                <form id="start-game-form" method="POST">
+                    <div class="mb-3">
+                        <label for="input_genre" class="form-label">Choose a genre:</label>
+                        <input type="text" name="genre" class="form-control" id="input_genre" value="Superhero" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="input_decade" class="form-label">Choose a decade:</label>
+                        <input type="text" name="decade" class="form-control" id="input_decade" value="2010s" required>
+                    </div>
+                    <button id="start-game" type="submit" class="btn btn-primary">Start Game</button>
+                </form>
+            {% endif %}
+        {% endif %}
+    </div>
+    <script>
+      // Function to show loading spinner
+      function showLoadingSpinner() {
+        console.log("meme")
+        document.getElementById("loading").style.display = "block";
+      }
+
+      // Attach event listeners to buttons
+      if (document.getElementById("play-again")) {
+        document.getElementById("play-again").addEventListener("click", showLoadingSpinner);
+      }
+
+      if (document.getElementById("submit-guess")) {
+        document.getElementById("submit-guess").addEventListener("click", showLoadingSpinner);
+      }
+
+      if (document.getElementById("start-game")) {
+        document.getElementById("start-game").addEventListener("click", showLoadingSpinner);
+      }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
 </body>
+</html>
