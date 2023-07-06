@@ -20,6 +20,12 @@
         <div id="loading" class="text-center" style="display: none;">
             <div class="loader"></div>
         </div>
+        <div id="answer" class="text-center" style="display: none;">
+            <h2>The movie was: <span id="answer-movie"></span></h2>
+            <form method="POST">
+                <button id="play-again" type="submit" class="btn btn-primary">Play Again</button>
+            </form>
+        </div>
         {% if win %}
             <h2>Congratulations! You guessed the movie: {{ secret_movie }}</h2>
             <form method="POST">
@@ -41,10 +47,13 @@
                     </div>
                     <div class="d-flex justify-content-between">
                         <h2>Latest Hint:</h2>
-                        <button id="submit-guess" type="submit" class="btn btn-primary">Submit Guess</button>
+                        <div>
+                            <button id="submit-guess" type="submit" class="btn btn-primary">Submit Guess</button>
+                            <button id="give-up" type="button" class="btn btn-danger" onclick="revealAnswer()">Give Up</button>
                     </div>
                     <p>{{ hint_history[-1] }}</p>
                 </form>
+
             {% else %}
                 <form id="start-game-form" method="POST">
                     <div class="mb-3">
@@ -79,6 +88,12 @@
       if (document.getElementById("start-game")) {
         document.getElementById("start-game").addEventListener("click", showLoadingSpinner);
       }
+
+      function revealAnswer() {
+        document.getElementById("answer-movie").innerText = "{{ secret_movie }}";
+        document.getElementById("submit-guess-form").style.display = "none";
+        document.getElementById("answer").style.display = "block";
+       }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
 </body>
